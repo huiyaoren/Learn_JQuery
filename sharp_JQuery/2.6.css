@@ -1,0 +1,18 @@
+body {
+
+}
+.SubCategoryBox {
+    text-align: center;
+    margin: 0 auto;
+}
+.SubCategoryBox ul {
+    text-align: left;
+}
+.SubCategoryBox ul li {
+    display: inline-block;
+    text-align: left;
+    width: 180px;
+}
+.showmore {
+    text-align: center;
+}

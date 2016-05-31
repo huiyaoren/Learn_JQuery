@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="jquery-1.12.0.min.js"></script>
+    <style>
+        * {
+            border: 0;
+            margin: 0;
+            padding: 0;
+            font-family: 'Microsoft Yahei', sans-serif;
+        }
+
+        td {
+            border-top: solid 1px black;
+            border-left: solid 1px black;
+
+            padding: 5px;
+        }
+
+        table {
+            margin: 0 auto;
+            border-bottom: solid 1px black;
+            border-right: solid 1px black;
+        }
+
+        .login {
+            margin: 0 auto;
+            width: 400px;
+            border: solid 1px black;
+            text-align: center;
+
+        }
+
+        .login > * {
+            width: 300px;
+            margin: 15px;
+            height: 25px;
+            display: inline-block;
+        }
+
+        .login > input {
+            border: solid 1px black;
+        }
+
+        .table_alert {
+            display: none;
+            position: fixed;
+            border: solid 1px black;
+            background: white;
+            width: 20%;
+            height: 20%;
+            top: 40%;
+            left: 40%;
+        }
+
+    </style>
+    <script>
+
+        function range(num) {
+            var list = [];
+            for (var i = 0; i < num; i++) {
+                list[i] = i;
+            }
+            return list
+        }
+        $(function () {
+
+
+            var $submit = $(".login > input:button");
+            var $username = $(".login > input:text");
+            var $password = $(".login > input:password");
+            var $text = $(".login > input:not(:button)");
+//          点击登陆
+            $submit.click(function () {
+                var username = $username.val();
+                var password = $password.val();
+//                console.log($username.val());
+                if (username != "" || password != "") {
+                    alert("已获取账号与密码 / 账号：" + username + " / 密码：" + password);
+                }
+            });
+            $text.focus(function (event) {
+                $(event.currentTarget).css("background", "black");
+                $(event.currentTarget).css("color", "white");
+            });
+            $text.blur(function (event) {
+                $(event.currentTarget).css("background", "white");
+                $(event.currentTarget).css("color", "black");
+            });
+
+
+            var $table = $(".table");
+            var $table_alert = $(".table_alert");
+
+            $(".table tr").click(function (event) {
+                if (event.target.value == "删除") {
+                    $table_alert.css("display", "block");
+                    $(".table_alert input[value='是']").click(function () {
+//                        console.log(event.target.value);
+                        $table_alert.css("display", "none");
+                        $(event.currentTarget).remove();
+                    });
+                    $(".table_alert input[value='否']").click(function () {
+                        $table_alert.css("display", "none");
+                    });
+                }
+            });
+
+            $(".table input:button[value='批量删除']").click(function () {
+                var $trs = $(".table tr:not(:first)");
+//                console.log($(".table tr:not(:first) input:checkbox"));
+
+                $table_alert.css("display", "block");
+
+                $(".table_alert input[value='是']").click(function () {
+                    $table_alert.css("display", "none");
+                    for (var i in range($trs.length)) {
+                        console.log($trs.length - i - 1);
+                        if ($(".table tr:not(:first) input:checkbox")[$trs.length - i - 1].checked == true) {
+                            $trs[$trs.length - i - 1].remove();
+                        }
+                    }
+                });
+                $(".table_alert input[value='否']").click(function () {
+                    $table_alert.css("display", "none");
+                });
+            })
+        });
+    </script>
+</head>
+<body>
+<div class="login">
+    <h1>登陆</h1>
+    <input type="text" placeholder="账号"/>
+    <input type="password" placeholder="密码"/>
+    <input type="button" value="登陆"/>
+</div>
+<br/>
+
+<div class="table">
+    <div class="table_alert">
+        <p>确认删除？</p>
+        <input type="button" value="是">
+        <input type="button" value="否">
+    </div>
+    <table border="1px" cellspacing="0" cellpadding="1px">
+        <tr>
+            <td>序号</td>
+            <td>商品名称</td>
+            <td>商品图片</td>
+            <td>所属分类</td>
+            <td>商品价格</td>
+            <td>商品库存</td>
+            <td>商品 ID</td>
+            <td>操作</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>商品名称</td>
+            <td>商品图片</td>
+            <td>A级赛车</td>
+            <td>74.00</td>
+            <td>1000</td>
+            <td>001</td>
+            <td>
+                <!--<input type="button" value="修改">-->
+                <input type="button" value="删除">
+            </td>
+        </tr>
+
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>商品名称</td>
+            <td>商品图片</td>
+            <td>A级赛车</td>
+            <td>74.00</td>
+            <td>1000</td>
+            <td>002</td>
+            <td>
+                <!--<input type="button" value="修改">-->
+                <input type="button" value="删除">
+            </td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>商品名称</td>
+            <td>商品图片</td>
+            <td>A级赛车</td>
+            <td>74.00</td>
+            <td>1000</td>
+            <td>003</td>
+            <td>
+                <!--<input type="button" value="修改">-->
+                <input type="button" value="删除">
+            </td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>商品名称</td>
+            <td>商品图片</td>
+            <td>A级赛车</td>
+            <td>74.00</td>
+            <td>1000</td>
+            <td>004</td>
+            <td>
+                <!--<input type="button" value="修改">-->
+                <input type="button" value="删除">
+            </td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>商品名称</td>
+            <td>商品图片</td>
+            <td>A级赛车</td>
+            <td>74.00</td>
+            <td>1000</td>
+            <td>005</td>
+            <td>
+                <!--<input type="button" value="修改">-->
+                <input type="button" value="删除">
+            </td>
+        </tr>
+        <input type="button" value="批量删除">
+    </table>
+
+</div>
+</body>
+</html>
