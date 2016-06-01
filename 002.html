@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="jquery-1.12.0.min.js" rel="script"></script>
+    <style>
+        .banner {
+            height: 570px;
+
+            background-image: url("002/banner_back.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .banner_box > img {
+            margin-top: 90px;
+            margin-bottom: 10px;
+
+        }
+
+        /* 左右箭头 */
+        .banner:hover #banner_box_right,
+        .banner:hover #banner_box_left {
+            display: inline-block;
+        }
+
+        #banner_box_right,
+        #banner_box_left {
+            width: 23px;
+            height: 37px;
+
+            display: none;
+            position: absolute;
+            top: 230px;
+            cursor: pointer;
+
+        }
+
+        #banner_box_left {
+            background-image: url(002/banner_left.png);
+            left: 40px;
+        }
+
+        #banner_box_right {
+            background-image: url(002/banner_right.png);
+            right: 40px;
+        }
+
+        /* 圆点 */
+        .banner_box > div > a {
+            width: 12px;
+            height: 12px;
+
+            margin-right: 7px;
+            margin-left: 7px;
+            border: solid 2px #747474;
+            border-radius: 7px;
+
+            display: inline-block;
+            background: #747474;
+            cursor: pointer;
+
+        }
+
+        .banner_box_button_hover {
+            background: none;
+        }
+
+    </style>
+    <script>
+        $(function () {
+            var banner_imgList = [
+                "002/banner0.png",
+                "002/banner1.png",
+                "002/banner2.png",
+                "002/banner3.png"
+            ];
+            var $imgBox = $("#banner_box_img");
+            var $leftButton = $("#banner_box_left");
+            var $rightButton = $("#banner_box_right");
+            var $buttonBox = $("#banner_box_button");
+
+            imgLoopRun($imgBox, banner_imgList, $leftButton, $rightButton, $buttonBox);
+
+            function imgLoopRun($imgBox, imgList, $leftButton, $rightButton, $buttonBox) {
+
+
+                function selectPageByIndex(index, $imgBox, imgList) {
+                    $imgBox.attr("src", imgList[index]);
+                }
+
+
+                function imgBeginDisplay($imgBox, $buttonBox, imgList) {
+                    selectPageByIndex(0, $imgBox, imgList);
+                    $($buttonBox.children()[0]).css("background", "rgba(0, 0, 0, 0)")
+                }
+
+
+                function clearAndFindPage($buttonBox) {
+
+                    for (var i = 0; i < $buttonBox.children().length; i++) {
+//                        console.log($($buttonBox.children()[i]).css("background-color"));
+                        if ($($buttonBox.children()[i]).css("background-color") == "rgba(0, 0, 0, 0)") {
+                            return i
+                        }
+                    }
+                }
+
+                function setPageButton($buttonBox, index) {
+                    $buttonBox.children().css("background", "rgb(116, 116, 116)");
+                    $($buttonBox.children()[index]).css("background", "rgba(0, 0, 0, 0)")
+                }
+
+                imgBeginDisplay($imgBox, $buttonBox, imgList);
+
+
+                $rightButton.click(function () {
+                    var index = clearAndFindPage($buttonBox);
+                    index += 1;
+                    console.log(index);
+                    if (index > 3) {
+                        index = 0;
+                    }
+                    setPageButton($buttonBox, index);
+                    selectPageByIndex(index, $imgBox, imgList)
+                });
+
+
+                $leftButton.click(function () {
+                    clearInterval(loop);
+                    var index = clearAndFindPage($buttonBox);
+                    index -= 1;
+                    if (index <0) {
+                        index = 3;
+                    }
+                    console.log(index);
+                    setPageButton($buttonBox, index);
+                    selectPageByIndex(index, $imgBox, imgList)
+                });
+
+
+                $imgBox.load(function () {
+                    loop = setInterval(function () {
+//                        $rightButton.click(); //todo 翻页数量会递增
+                    }, 2000)
+                });
+            }
+        })
+    </script>
+</head>
+<body>
+
+<div class="banner">
+    <div class="banner_box _box">
+        <img id="banner_box_img" src="002/banner0.png"/>
+        <a id="banner_box_left"></a>
+        <a id="banner_box_right"></a>
+
+        <div id="banner_box_button">
+            <a></a>
+            <a></a>
+            <a></a>
+            <a></a>
+        </div>
+    </div>
+</div>
+
+<div class="page">
+
+</div>
+</body>
+</html>
