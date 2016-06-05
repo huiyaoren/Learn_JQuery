@@ -70,8 +70,27 @@
             background: none;
         }
 
+        .table_alert {
+            display: none;
+            position: fixed;
+            border: solid 1px black;
+            background: white;
+            width: 20%;
+            height: 20%;
+            top: 40%;
+            left: 40%;
+        }
+
     </style>
     <script>
+        function range(num) {
+            var list = [];
+            for (var i = 0; i < num; i++) {
+                list[i] = i;
+            }
+            return list
+        }
+
         $(function () {
             var banner_imgList = [
                 "002/banner0.png",
@@ -110,6 +129,7 @@
                     }
                 }
 
+
                 function setPageButton($buttonBox, index) {
                     $buttonBox.children().css("background", "rgb(116, 116, 116)");
                     $($buttonBox.children()[index]).css("background", "rgba(0, 0, 0, 0)")
@@ -121,7 +141,7 @@
                 $rightButton.click(function () {
                     var index = clearAndFindPage($buttonBox);
                     index += 1;
-                    console.log(index);
+//                    console.log(index);
                     if (index > 3) {
                         index = 0;
                     }
@@ -131,10 +151,10 @@
 
 
                 $leftButton.click(function () {
-                    clearInterval(loop);
+//                    clearInterval(loop);
                     var index = clearAndFindPage($buttonBox);
                     index -= 1;
-                    if (index <0) {
+                    if (index < 0) {
                         index = 3;
                     }
                     console.log(index);
@@ -146,6 +166,7 @@
                 $imgBox.load(function () {
                     loop = setInterval(function () {
 //                        $rightButton.click(); //todo 翻页数量会递增
+
                     }, 2000)
                 });
             }
@@ -169,8 +190,162 @@
     </div>
 </div>
 
-<div class="page">
+<div class="table">
+    <div class="table_alert">
+        <p>确认删除？</p>
+        <input type="button" value="是">
+        <input type="button" value="否">
+    </div>
+    <table border="1px" cellspacing="0" cellpadding="1px">
+        <tr>
+            <td>序号</td>
+            <td>商品名称</td>
+            <td>商品图片</td>
+            <td>所属分类</td>
+            <td>商品价格</td>
+            <td>商品库存</td>
+            <td>商品 ID</td>
+            <td>操作</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>商品名称</td>
+            <td>商品图片</td>
+            <td>A级赛车</td>
+            <td>74.00</td>
+            <td>1000</td>
+            <td>001</td>
+            <td>
+                <!--<input type="button" value="修改">-->
+                <input type="button" value="删除">
+            </td>
+        </tr>
 
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>商品名称</td>
+            <td>商品图片</td>
+            <td>A级赛车</td>
+            <td>74.00</td>
+            <td>1000</td>
+            <td>002</td>
+            <td>
+                <!--<input type="button" value="修改">-->
+                <input type="button" value="删除">
+            </td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>商品名称</td>
+            <td>商品图片</td>
+            <td>A级赛车</td>
+            <td>74.00</td>
+            <td>1000</td>
+            <td>003</td>
+            <td>
+                <!--<input type="button" value="修改">-->
+                <input type="button" value="删除">
+            </td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>商品名称</td>
+            <td>商品图片</td>
+            <td>A级赛车</td>
+            <td>74.00</td>
+            <td>1000</td>
+            <td>004</td>
+            <td>
+                <!--<input type="button" value="修改">-->
+                <input type="button" value="删除">
+            </td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>商品名称</td>
+            <td>商品图片</td>
+            <td>A级赛车</td>
+            <td>74.00</td>
+            <td>1000</td>
+            <td>005</td>
+            <td>
+                <!--<input type="button" value="修改">-->
+                <input type="button" value="删除">
+            </td>
+        </tr>
+        <input type="button" value="批量删除">
+        <input type="button" value="增加表格">
+    </table>
 </div>
+
+<!--<div class="test" style="display:none">-->
+    <!--<input type="button" value="show">-->
+    <!--<input type="button" value="hide">-->
+    <!--<input type="button" value="toggle">-->
+
+    <!--<div id="div" style="background: black;width: 1000px;height:1000px"></div>-->
+<!--</div>-->
 </body>
 </html>
+<script>
+//    var $showButton = $("input[value = 'show']");
+//    var $hideButton = $("input[value = 'hide']");
+//    var $toggleButton = $("input[value = 'toggle']");
+//    var $div = $("#div");
+//
+//    $showButton.click(function () {
+//        $div.fadeIn(1000, function () {
+//            console.log("show finish");
+//        });
+//    });
+//
+//    $hideButton.click(function () {
+//        $div.fadeOut(1000, function () {
+//            console.log("hide finish");
+//        });
+//    });
+//
+//    $toggleButton.toggle(function () {
+//                $div.fadeIn();
+//            }, function () {
+//                $div.fadeOut();
+//            }
+//    );
+
+    var $table_alert = $(".table_alert");
+
+    $(".table tr").click(function (event) {
+        if (event.target.value == "删除") {
+            $table_alert.css("display", "block");
+            $(".table_alert input[value='是']").click(function () {
+//                        console.log(event.target.value);
+                $table_alert.css("display", "none");
+                $(event.currentTarget).remove();
+            });
+            $(".table_alert input[value='否']").click(function () {
+                $table_alert.css("display", "none");
+            });
+        }
+    });
+
+    $(".table input:button[value='批量删除']").click(function () {
+        var $trs = $(".table tr:not(:first)");
+//                console.log($(".table tr:not(:first) input:checkbox"));
+
+        $table_alert.css("display", "block");
+
+        $(".table_alert input[value='是']").click(function () {
+            $table_alert.css("display", "none");
+            for (var i in range($trs.length)) {
+                console.log($trs.length - i - 1);
+                if ($(".table tr:not(:first) input:checkbox")[$trs.length - i - 1].checked == true) {
+                    $trs[$trs.length - i - 1].remove();
+                }
+            }
+        });
+
+        $(".table_alert input[value='否']").click(function () {
+            $table_alert.css("display", "none");
+        });
+    })
+</script>
