@@ -128,7 +128,7 @@ function SetPage_0(content, num, height, buttonBox) {
 }
 
 
-// 轮播图 类
+// JavaScript 轮播图 类
 function ImgLoop(imgList, buttonBox, imgBox, leftArr, rightArr, time) {
     this.imgList = imgList; // 图片列表
     this.num = imgList.length; // 图片数量
@@ -288,3 +288,28 @@ function ImgLoop(imgList, buttonBox, imgBox, leftArr, rightArr, time) {
     }
 }
 
+// JQuery 轮播图 类
+function Carousel(imgList, $imgBox, speed) {
+    this.speed = speed;
+    this.imgList = imgList;
+    this.num = imgList.length;
+    this.$imgBx = $imgBox;
+    this.$btnBx = $imgBox.children("div");
+    this.$lftArw = $imgBox.children("a:eq(0)");
+    this.$rghtArw = $imgBox.children("a:eq(1)");
+
+    this.crtBtn = function () {
+        for (var i in range(this.num)) {
+            this.$btnBx.append($("<a>" + i + "</a>"));
+        }
+    };
+
+    this.setInitial = function () {
+        
+    };
+
+    this.run = function () {
+        this.crtBtn();
+        this.setInitial();
+    }
+}

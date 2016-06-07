@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="jquery-1.12.0.min.js"></script>
+    <script src="personalModol.js"></script>
+    <title></title>
+    <style>
+        * {
+            font-family: 'Microsoft Yahei', sans-serif;
+        }
+
+        .carousel{
+            display: inline-block;
+            position: relative;
+        }
+        .carousel > div > a {
+            border: solid 1px black;
+            display: inline-block;
+            padding: 0 10px;
+        }
+
+        .carousel > a{
+            top:100px;
+            position: absolute;
+            border: solid 1px black;
+            display: inline-block;
+            width: 23px;
+            height: 37px;
+            background: black;
+        }
+        .carousel > a:first-child {
+            left: 20px;
+            background-image: url("004/banner_left.png");
+        }
+        .carousel > a:nth-child(2) {
+            right: 20px;
+            background-image: url("004/banner_right.png");
+        }
+
+
+    </style>
+    <script>
+        $(function () {
+            var imgList = [
+                "004/01.jpg",
+                "004/02.jpg",
+                "004/03.jpg",
+                "004/04.jpg"
+            ];
+            var carousel = new Carousel(imgList, $(".carousel"));
+            carousel.crtBtn();
+        })
+    </script>
+</head>
+<body>
+<div class="carousel">
+    <a></a>
+    <a></a>
+    <img src="004/01.jpg"/>
+    <div></div>
+</div>
+</body>
+</html>
