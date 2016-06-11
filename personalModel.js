@@ -12,6 +12,257 @@ function range(num) {
     return list
 }
 
+// JQuery 轮播图
+function Carousel(imgList, $imgBox, speed) {
+    var num = imgList.length;
+
+    // todo 以下属性 为 DOM 对象生成后才能被获取
+    function $btnBx() {
+        return $imgBox.children("div");
+    }
+
+    function $lftArw() {
+        return $imgBox.children("a:eq(0)");
+    }
+
+    function $rightArw() {
+        return $imgBox.children("a:eq(1)")
+    }
+
+    function $image() {
+        return $imgBox.children("img")
+    }
+
+    // 运行
+    this.run = function () {
+        crtBase();
+        crtBtn();
+        switchImgAndMark(0);
+        autoSwitch();
+
+        //imgLoop = window.setInterval(rightSwitch, speed);
+        $rightArw()
+            .click(rightSwitch)
+            .mouseout(autoSwitch)
+            .mouseover(function () {
+                clearInterval(imgLoop)
+            });
+
+        $lftArw()
+            .click(leftSwitch)
+            .mouseout(autoSwitch)
+            .mouseover(function () {
+                clearInterval(imgLoop)
+            });
+
+
+        $image()
+            .mouseout(autoSwitch)
+            .mouseover(function () {
+                clearInterval(imgLoop)
+            });
+
+        $btnBx()
+            .mouseover(function () {
+                selectImg(event)
+            })
+            .mouseout(autoSwitch)
+    };
+
+    // 创建 DOM 框架
+    function crtBase() {
+        $imgBox
+            .append($("<img/><a></a><a></a><div></div>"))
+            .addClass("_carousel")
+    }
+
+    // 创建标记
+    function crtBtn() {
+        for (var i in range(num)) {
+            $btnBx().append($("<a>" + (Number(i) + 1) + "</a>"));
+        }
+
+    }
+
+    // 切换图片与标记
+    function switchImgAndMark(index) {
+        $btnBx().children().removeClass("_firstButton");
+        $btnBx().children(":eq(" + index + ")").addClass("_firstButton");
+        $image().attr("src", imgList[index]);
+    }
+
+    // 获取当前页数
+    function currentPage() {
+        return $imgBox.children("div").children("[class*='_firstButton']").index();
+    }
+
+    // 右箭头
+    function rightSwitch() {
+        var idx = currentPage();
+        idx += 1;
+        if (idx > num - 1) {
+            idx = 0;
+        }
+        //console.log(idx);
+        switchImgAndMark(idx)
+    }
+
+    // 左箭头
+    function leftSwitch() {
+        var idx = currentPage();
+        idx -= 1;
+        if (idx < 0) {
+            idx = num - 1;
+        }
+        //console.log(idx);
+        switchImgAndMark(idx)
+    }
+
+    // 自动轮播
+    function autoSwitch() {
+        imgLoop = window.setTimeout(function () {
+            if ($lftArw().css("display") != "none") {
+                //return null
+            }
+            rightSwitch();
+            window.setTimeout(autoSwitch, 0);
+        }, speed);
+    }
+
+    // 通过标记指定图片
+    function selectImg(evt) {
+        if (evt.target.tagName = "A") {
+            clearInterval(imgLoop);
+            var idx = $(evt.target).index();
+            console.log(idx);
+            switchImgAndMark(idx)
+        }
+    }
+}
+
+// JQuery 分页控件
+function PageSetting($content, n, $buttonBox) {
+
+    var contentCount = $content.children().length;
+    var pageCount = contentCount % n == 0 ? contentCount / n : parseInt(contentCount / n) + 1;
+
+    // 初始化
+    function loadInitContent() {
+        $content.children().hide();
+        showContentByIndex(1);
+        showButtonByIndex(1);
+    }
+
+    // 创建翻页按钮
+    function crtButton() {
+
+        $buttonBox
+            .append($("<a>首页</a>"))
+            .append($("<a>上一页</a>"));
+
+        for (var i in range(pageCount)) {
+            $("<a>" + (Number(i) + 1) + "</a>").appendTo($buttonBox)
+        }
+
+        $buttonBox
+            .append($("<a>下一页</a>"))
+            .append($("<a>末页</a>"))
+            .children().addClass("_pageButton")
+    }
+
+    // 根据页码显示内容
+    function showContentByIndex(index) {
+        if (index > 0 && index <= pageCount) {
+            $content.children().hide();
+            $content.children(":eq(" + (index - 1) * n + ")").show();
+            $content.children(":gt(" + (index - 1) * n + "):lt(" + (n - 1) + ")").show();
+            //console.log((index - 1) * n + ":" + (index * n - 1))
+        }
+        //else if (index == this.pageCount) {
+        //    if(this.contentCount % n != 0){
+        //        $content.children(":eq(" + (index - 1) * n + ")").show();
+        //        $content.children(":gt(" + (index - 1) * n + "):lt(" + ((this.contentCount % n)-1) + ")").show();
+        //    }
+        //    else{
+        //        $content.children(":eq(" + (index - 1) * n + ")").show();
+        //        $content.children(":gt(" + (index - 1) * n + "):lt(" + (n - 1) + ")").show();
+        //    }
+        //}
+    }
+
+    // 根据页码显示按钮
+    function showButtonByIndex(index) {
+
+        if (index > 1 && index < pageCount) {
+            $buttonBox.children().show().removeClass("_pageButton_current");
+            $buttonBox.children(":eq(" + (index + 1) + ")").addClass("_pageButton_current");
+
+        }
+        else if (index == 1) {
+
+            $buttonBox.children().show().removeClass("_pageButton_current");
+            $buttonBox.children(":eq(0),:eq(1)").hide();
+            $buttonBox.children(":eq(2)").addClass("_pageButton_current");
+        }
+
+        else if (index == pageCount) {
+
+            $buttonBox.children().show().removeClass("_pageButton_current");
+            $buttonBox.children(":eq(-1),:eq(-2)").hide();
+            $buttonBox.children(":eq(-3)").addClass("_pageButton_current");
+
+        }
+    }
+
+    // 获得当前页
+    function currentPage() {
+        return Number($buttonBox.children("[class*=_pageButton_current]").html());
+    }
+
+    // 翻页
+    function switchPage(event) {
+        if (event.target.innerHTML == "首页") {
+            showContentByIndex(1);
+            showButtonByIndex(1);
+        }
+        else if (event.target.innerHTML == "末页") {
+            showContentByIndex(pageCount);
+            showButtonByIndex(pageCount);
+        }
+        else if (event.target.innerHTML == "下一页") {
+            showContentByIndex(currentPage() + 1);
+            showButtonByIndex(currentPage() + 1);
+        }
+        else if (event.target.innerHTML == "上一页") {
+            showContentByIndex(currentPage() - 1);
+            showButtonByIndex(currentPage() - 1);
+        }
+        else/* if (event.target.innerHTML >= 1 && event.target.innerHTML <= pageCount) */{
+            showContentByIndex(Number(event.target.innerHTML));
+            showButtonByIndex(Number(event.target.innerHTML));
+        }
+    }
+
+
+    //运行
+    this.run = function () {
+        //alert(this.pageCount);
+        crtButton();
+        loadInitContent();
+
+        $buttonBox.click(function () {
+            switchPage(event)
+        });
+
+    }
+}
+
+
+
+
+
+
+
 
 // 指定页数 翻页
 function switchPageByIndex_0(index, height, content) {
@@ -118,7 +369,6 @@ function SetPage_0(content, num, height, buttonBox) {
 
     // todo 给按钮绑定事件
     try {
-
         // 有可能课程数量未满一页 不创建翻页按钮 导致事件绑定失败
         buttonBox.onclick = function () {
             switchPage_0(event, buttonBox, content, height);
@@ -285,31 +535,5 @@ function ImgLoop(imgList, buttonBox, imgBox, leftArr, rightArr, time) {
 
         //buttonBox.onmouseout = this.autoRun();
         //imgBox.removeEventListener("load", this.autoRun, true);
-    }
-}
-
-// JQuery 轮播图 类
-function Carousel(imgList, $imgBox, speed) {
-    this.speed = speed;
-    this.imgList = imgList;
-    this.num = imgList.length;
-    this.$imgBx = $imgBox;
-    this.$btnBx = $imgBox.children("div");
-    this.$lftArw = $imgBox.children("a:eq(0)");
-    this.$rghtArw = $imgBox.children("a:eq(1)");
-
-    this.crtBtn = function () {
-        for (var i in range(this.num)) {
-            this.$btnBx.append($("<a>" + i + "</a>"));
-        }
-    };
-
-    this.setInitial = function () {
-        
-    };
-
-    this.run = function () {
-        this.crtBtn();
-        this.setInitial();
     }
 }

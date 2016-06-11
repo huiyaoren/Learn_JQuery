@@ -3,39 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <script src="jquery-1.12.0.min.js"></script>
-    <script src="personalModol.js"></script>
+    <script src="personalModel.js"></script>
     <title></title>
     <style>
         * {
             font-family: 'Microsoft Yahei', sans-serif;
         }
 
-        .carousel{
+        ._carousel {
             display: inline-block;
             position: relative;
-        }
-        .carousel > div > a {
-            border: solid 1px black;
-            display: inline-block;
-            padding: 0 10px;
+            width: 440px;
         }
 
-        .carousel > a{
-            top:100px;
-            position: absolute;
+        ._carousel > div {
+            display: inline-block;
+        }
+
+        ._carousel > div > a {
             border: solid 1px black;
             display: inline-block;
+            padding: 0 15px;
+            margin: 0 2px
+        }
+
+        ._carousel > a {
+            display: none;
+            top: 100px;
+            position: absolute;
             width: 23px;
             height: 37px;
-            background: black;
+            background: rgba(0, 0, 0, .5);
         }
-        .carousel > a:first-child {
+
+        ._carousel:hover > a {
+            display: inline-block;
+        }
+
+        ._carousel > a:nth-child(2) {
             left: 20px;
             background-image: url("004/banner_left.png");
         }
-        .carousel > a:nth-child(2) {
+
+        ._carousel > a:nth-child(3) {
             right: 20px;
             background-image: url("004/banner_right.png");
+        }
+
+        ._firstButton {
+            background: black;
+            color: white;
+        }
+
+        ._pageButton {
+            display: inline-block;
+            border: solid 1px black;
+            margin: 2px;
+            padding: 0 15px;
+        }
+
+        ._pageButton_current {
+            color: white;
+            background: black;
+        }
+
+        #content {
+            height: 100px;
+        }
+
+        .animate span {
+            display: inline-block;
+            width: 0;
+            height: 10px;
+            background: black;
+        }
+
+        .animate a {
+            border: solid 1px black;
+            padding: 0 15px;
+        }
+
+        .animate > span {
+            width: 500px;
+            height: 10px;
+            background: white;
+            border: solid 1px black;
+            overflow: hidden;
+        }
+
+        .animate a:hover ~ span > span {
+            vertical-align: top;
+            height: 10px;
+            -webkit-animation: loading 10s ease-out;
+
+        }
+
+        @-webkit-keyframes loading {
+            from {
+                width: 0;
+            }
+            to {
+                width: 500px;
+            }
+        }
+
+        @-webkit-keyframes followMyHeart {
+            0% {
+
+            }
+            10% {
+                -webkit-transform: scaleX(-1) ;
+                background: -webkit-radial-gradient(gray, black)
+            }
+            to {
+
+            }
+        }
+
+        ._foo > div {
+            width: 100px;
+            height: 100px;
+            background: black;
+        }
+
+        ._foo a:hover ~ div {
+            -webkit-animation: followMyHeart 10s ease;
         }
 
 
@@ -48,17 +140,68 @@
                 "004/03.jpg",
                 "004/04.jpg"
             ];
-            var carousel = new Carousel(imgList, $(".carousel"));
-            carousel.crtBtn();
+            var carousel = new Carousel(imgList, $("#div1"), 1000);
+            carousel.run();
+//            var carousel2 = new Carousel(imgList, $("#page"),1000);
+//            carousel2.run();
+            var page = new PageSetting($("#content"), 5, $("#buttonBox"));
+            page.run()
+
         })
     </script>
 </head>
 <body>
-<div class="carousel">
-    <a></a>
-    <a></a>
-    <img src="004/01.jpg"/>
+<div id="div1">
+    <!--<img src="004/01.jpg"/>-->
+    <!--<a></a>-->
+    <!--<a></a>-->
+    <!--<div></div>-->
+</div>
+<br/>
+
+<div id="page">
+    <ul id="content">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+        <li>11</li>
+        <li>12</li>
+        <li>13</li>
+        <li>14</li>
+        <li>15</li>
+        <li>16</li>
+        <li>17</li>
+        <li>18</li>
+        <li>19</li>
+        <li>20</li>
+        <li>21</li>
+        <li>22</li>
+        <li>23</li>
+    </ul>
+    <div id="buttonBox">
+
+    </div>
+</div>
+<br/>
+
+<div class="animate">
+    <a>装备查询</a>
+    <span><span></span></span>
+</div>
+<br/>
+
+<div class="animate _foo">
+    <a>翻转与渐变</a>
+
     <div></div>
 </div>
+
 </body>
 </html>
