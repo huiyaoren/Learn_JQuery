@@ -4,31 +4,47 @@
     <meta charset="UTF-8">
     <title></title>
     <style>
-        form{
+        form {
             text-align: center;
             border: solid 1px black;
             width: 300px;
         }
-        input{
+
+        input {
             width: 150px;
             margin-top: 5px;
         }
     </style>
+    <script>
+        window.onload = function () {
+            var a = document.getElementsByTagName("meter")[0].value;
+            timer = setInterval(function () {
+                        document.getElementsByTagName("meter")[0].value += 1;
+//                        if (document.getElementsByTagName("meter")[0].value >= 100) {
+//                            clearInterval(timer)
+//                        }
+                    }, 50
+            );
+            console.log(a)
+        }
+
+    </script>
 </head>
 <body>
-    <div>
+<div>
 
-        <form method="post">
-            <h1>注册</h1>
-            账&nbsp;&nbsp;号：<input type="text" name="username"><br/>
-            密&nbsp;&nbsp;码：<input type="password" name="password1"><br/>
-            确认密码：<input type="password" name="password2"><br/>
-            出生日期：<input type="date" name="age"><br/>
-            昵&nbsp;&nbsp;称：<input type="text" name="nickname"><br/>
-            邮&nbsp;&nbsp;箱：<input type="email" name="email"><br/>
-            <input type="button" value="注册">
-            <audio src="005/1.mp3" controls="controls"></audio>
-        </form>
-    </div>
+    <form method="post">
+        <h1>注册</h1>
+        账&nbsp;&nbsp;号：<input type="text" name="username"><br/>
+        密&nbsp;&nbsp;码：<input type="password" name="password1"><br/>
+        确认密码：<input type="password" name="password2"><br/>
+        出生日期：<input type="date" name="age"><br/>
+        昵&nbsp;&nbsp;称：<input type="text" name="nickname"><br/>
+        邮&nbsp;&nbsp;箱：<input type="email" name="email"><br/>
+        <input type="button" value="注册">
+        <audio src="005/1.mp3" controls="controls"></audio>
+    </form>
+    <meter id="ww" value="1" min="0" max="100"></meter>
+</div>
 </body>
 </html>

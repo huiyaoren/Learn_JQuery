@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            border: 0;
+            padding: 0;
+            margin: 0;
+        }
+
+        canvas {
+            /*border: solid 1px black;*/
+            /*border-radius: 50px;*/
+        }
+
+        #count_down {
+            margin-top: 50px;
+            margin-left: 200px;
+        }
+
+        #count_down span {
+            display: inline-block;
+            width: 70px;
+            height: 20px;
+            border: solid 1px black;
+            text-align: center;
+        }
+
+        #cont_div {
+            margin-top: 200px;
+            margin-left: 200px;
+            width: 100px;
+            height: 100px;
+            border: solid 1px black;
+            border-radius: 50px;
+        }
+    </style>
+    <script src="jquery-1.12.0.min.js"></script>
+    <script>
+        window.onload = function () {
+            function Controller(div) {
+                var box = div.getElementsByTagName("canvas")[0];
+                var ctx = box.getContext("2d");
+                var d = box.width > box.height ? box.height : box.width;
+//                ctx.arc(d / 2, d / 2, d / 2, 0, 2 * Math.PI);
+//                ctx.stroke();
+                function outputVal(x, y) {
+//                    console.log(div.getElementsByTagName("span"))
+                    div.getElementsByTagName("span")[0].innerText = ((x - d / 2) / (d / 4)).toFixed(2) + "," + ((y - d / 2) / (d / 4)).toFixed(2);
+                }
+
+                this.run = function () {
+                    ctx.beginPath();
+                    ctx.arc(d / 2, d / 2, d / 4, 0, 2 * Math.PI);
+                    ctx.stroke();
+                    ctx.fill();
+                    outputVal(d / 2, d / 2)
+                };
+                this.bind = function (eventName, eventFn) {
+                    box.on(eventName, eventFn)
+                };
+                box.ondrag = function (event) {
+                    var X = event.clientX - div.offsetLeft;
+                    var Y = event.clientY - div.offsetTop;
+                    range = Math.sqrt(Math.pow(X - d / 2, 2) + Math.pow(Y - d / 2, 2));
+                    if (range >= d / 4) {
+                        var X0 = d * (2 * X - d) / (8 * range);
+                        var Y0 = d * (2 * Y - d) / (8 * range);
+                        ctx.clearRect(0, 0, d, d);
+                        ctx.beginPath();
+                        ctx.arc(d / 2 + X0, d / 2 + Y0, d / 4, 0, 2 * Math.PI);
+                        ctx.stroke();
+                        ctx.fill();
+                        outputVal(d / 2 + X0, d / 2 + Y0, d / 4)
+                    }
+                    else {
+                        ctx.clearRect(0, 0, d, d);
+                        ctx.beginPath();
+                        ctx.arc(X, Y, d / 4, 0, 2 * Math.PI);
+                        ctx.stroke();
+                        ctx.fill();
+                        outputVal(X, Y)
+                    }
+//                    console.log(event.clientX)
+                };
+                box.ondragend = function () {
+                    ctx.clearRect(0, 0 , d, d);
+                    ctx.beginPath();
+                    ctx.arc(d / 2, d / 2, d / 4, 0, 2 * Math.PI);
+                    ctx.stroke();
+                    ctx.fill();
+                    outputVal(d / 2, d / 2)
+                };
+
+
+            }
+
+            function CountDown(div) {
+
+
+                this._bind = function (name, fn) {
+                    $(div).on(name, fn)
+                };
+                $(div).children(":button").click(function () {
+                    var min = div.getElementsByTagName("input")[0].value = "" ? 0 : div.getElementsByTagName("input")[0].value;
+                    var sec = div.getElementsByTagName("input")[1].value = "" ? 0 : div.getElementsByTagName("input")[1].value;
+                    time = [min, sec];
+                    if (min != "" || sec != "") {
+                        if($(div).children("span").html()==""){
+                            $(div).children(":button").trigger("start", time)
+                        }
+                    }
+                });
+
+                this.run = function () {
+
+                }
+            }
+
+            var count = new CountDown(count_down);
+            count.run();
+            count._bind("start", function () {
+
+                timer = setInterval(function () {
+
+                    time[1] -= 1;
+                    $(count_down).children("span").html(time[0] + ":" + time[1]);
+
+                    if (time[1] <= 0 && time[0] <= 0) {
+                        alert("时间到");
+                        $(count_down).children("span").html("");
+                        clearInterval(timer);
+                    }
+                    else if (time[1] = 0 && time[0] > 0) {
+                        time[1] += 60;
+                        time[0] -= 1;
+                    }
+                    console.log(time)
+                }, 1000)
+            });
+
+            var cnt = new Controller(cont_div, 50, 20);
+            cnt.run();
+        }
+
+    </script>
+</head>
+<body>
+<div id="cont_div">
+    <canvas width="100px" height="100px" id="controller" draggable="true"></canvas>
+    <span></span>
+</div>
+
+<div id="count_down">
+    <input type="number" min="1" max="60" style="border: solid 1px">分钟<br/>
+    <input type="number" min="1" max="60" style="border: solid 1px">秒<br/>
+    <input type="button" value="开始倒计时">
+    <span></span>
+</div>
+</body>
+</html>

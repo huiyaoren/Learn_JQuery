@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        canvas {
+            border: solid 1px black;
+            background: url("006/1.png");
+        }
+
+        * {
+            border: 0;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var canvas = document.getElementsByTagName("canvas")[0];
+            console.log(canvas);
+            var ctx = canvas.getContext('2d');
+
+            var img = new Image();
+
+            X = 0;
+            Y = 136;
+            i = -1;
+
+
+            function arc() {
+                ctx.beginPath();
+                ctx.arc(X, Y, 20, 0, 2 * Math.PI);
+                ctx.fillStyle = "yellow";
+                ctx.fill();
+                ctx.strokeStyle = "yellow";
+                ctx.stroke();
+                ctx.closePath();
+            }
+
+            timer = setInterval(function () {
+                ctx.clearRect(0, 0, 480, 272);
+                arc();
+                i += .004;
+                X += 1;
+                Y += i;
+                console.log(1);
+                if (X > 500) {
+                    clearInterval(timer)
+                }
+            }, 50)
+
+        }
+    </script>
+</head>
+<body>
+<canvas width="480px" height="272px"></canvas>
+<button>dddddd</button>
+</body>
+</html>

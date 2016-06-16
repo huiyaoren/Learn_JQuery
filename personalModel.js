@@ -260,10 +260,6 @@ function PageSetting($content, n, $buttonBox) {
 
 
 
-
-
-
-
 // 指定页数 翻页
 function switchPageByIndex_0(index, height, content) {
     var top = -(index - 1) * height + "px";
