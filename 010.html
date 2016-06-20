@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #_cont_div {
+            position: absolute;
+            bottom: 35px;
+            left: 10px;
+            width: 100px;
+            height: 100px;
+            border: solid 1px black;
+            border-radius: 50px;
+            z-index: 100;
+        }
+
+        #_cont_div div {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+        }
+
+        meter {
+            width: 500px;
+            height: 30px;
+
+        }
+    </style>
+    <script src="010/Controller.js"></script>
+    <script src="010/Scene.js"></script>
+    <script src="010/Map.js"></script>
+    <script src="010/Speedometer.js"></script>
+    <script src="010/Director.js"></script>
+    <script src="010/Role.js"></script>
+    <script src="jquery-1.12.0.min.js"></script>
+    <script>
+        $(function () {
+            var director = new Director($(scene));
+            var login = new LoginScene();
+            var game = new GameScene();
+            director.runScene(login);
+            login.bind("loginCorrect", function () {
+                director.runScene(game);
+                var cnt = new Controller(_cont_div);
+                var meter = new Speedometer(_meterBox);
+                var role = new Role([
+                    "009/images/moto/m2.png",
+                    "009/images/biker/c6.png",
+                    "009/images/wheel/w2.png"
+                ], _map_div);
+                var road = new Map("009/images/map2.jpg", _map);
+
+                road.run();
+                role.run();
+                cnt.run();
+                meter.run();
+                role.move(150, 350);
+
+
+                meter.bind("speedChange", function () {
+
+                    var acc = cnt.acc()[0] <= 0 ? -0.5 : cnt.acc()[0] / 10;
+                    meter.meter.value += acc;
+                    $("h1").html("加速度：" + (acc).toFixed(2) + "/10ms，速度：" + (meter.meter.value).toFixed(2));
+                    road.move(meter.meter.value / 5);
+                    role.move(meter.meter.value / 5, cnt.acc()[1]);
+                    role.roll(meter.meter.value)
+                });
+            });
+//
+
+        })
+    </script>
+
+</head>
+<body>
+<div id="scene"></div>
+</body>
+</html>

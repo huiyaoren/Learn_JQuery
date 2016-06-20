@@ -62,9 +62,9 @@
                 };
                 this.bind = function (eventName, eventFn) {
                     $(box).on(eventName, eventFn)
-                };
+                };  
                 fakeBox.ondrag = function (event) {
-                    var X = event.clientX - div.offsetLeft;
+                    var X = event.clientX - div.offsetLeft;//jq.offset().left
                     var Y = event.clientY - div.offsetTop;
                     range = Math.sqrt(Math.pow(X - d / 2, 2) + Math.pow(Y - d / 2, 2));
                     if (range >= d / 4) {
@@ -129,7 +129,6 @@
                 }
                 meter.meter.value += acc;
                 $("h1").html("加速度："+acc+"，速度："+meter.meter.value)
-
             });
 
 
