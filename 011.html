@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="jquery-1.12.0.min.js"></script>
+</head>
+<script>
+    window.onload = function () {
+
+        var db = openDatabase('mydb', '2.0', 'my db', 2 * 1024 * 1024);
+
+        $(":button")[0].click(function () {
+
+
+        });
+
+        $($(":button")[1]).click(function () {
+            db.transaction(function (tx) {
+                tx.executeSql("\
+                create table t_student(\
+                    id integer primary key autoincrement,\
+                    name text,\
+                    matriculation integer,\
+                    class integer,\
+                    address_province text,\
+                    sex text\
+            )");
+                tx.executeSql("\
+                create table t_course(\
+                    id integer primary key autoincrement,\
+                    name text,\
+                    teacher text\
+            )");
+                tx.executeSql("\
+                create table t_mark(\
+                    id integer primary key autoincrement,\
+                    sid integer,\
+                    cid integer,\
+                    mark float\
+            )");
+            })
+        });
+
+
+        $($(":button")[2]).click(function () {
+            db.transaction(function (tx) {
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(1,1,92)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(1,2,11)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(1,3,37)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(1,4,96)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(1,5,45)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(2,1,13)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(2,2,50)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(2,3,68)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(2,4,14)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(2,5,32)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(3,1,41)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(3,2,18)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(3,3,36)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(3,4,29)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(3,5,99)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(4,1,89)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(4,2,48)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(4,3,70)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(4,4,77)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(4,5,63)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(5,1,76)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(5,2,28)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(5,3,49)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(5,4,36)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(5,5,19)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(6,1,53)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(6,2,50)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(6,3,40)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(6,4,13)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(6,5,78)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(7,1,54)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(7,2,61)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(7,3,99)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(7,4,90)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(7,5,75)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(8,1,80)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(8,2,16)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(8,3,94)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(8,4,56)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(8,5,70)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(9,1,13)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(9,2,61)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(9,3,20)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(9,4,79)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(9,5,95)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(10,1,92)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(10,2,83)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(10,3,61)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(10,4,90)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(10,5,16)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(11,1,47)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(11,2,3)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(11,3,21)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(11,4,36)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(11,5,45)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(12,1,18)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(12,2,7)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(12,3,48)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(12,4,77)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(12,5,62)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(13,1,48)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(13,2,73)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(13,3,36)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(13,4,74)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(13,5,30)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(14,1,11)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(14,2,39)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(14,3,65)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(14,4,27)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(14,5,1)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(15,1,68)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(15,2,4)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(15,3,40)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(15,4,16)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(15,5,57)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(16,1,80)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(16,2,73)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(16,3,19)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(16,4,100)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(16,5,5)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(17,1,100)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(17,2,18)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(17,3,78)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(17,4,31)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(17,5,41)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(18,1,52)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(18,2,90)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(18,3,71)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(18,4,97)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(18,5,77)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(19,1,72)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(19,2,68)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(19,3,53)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(19,4,100)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(19,5,15)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(20,1,62)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(20,2,34)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(20,3,46)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(20,4,91)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(20,5,33)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(21,1,12)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(21,2,49)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(21,3,93)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(21,4,95)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(21,5,96)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(22,1,64)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(22,2,92)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(22,3,9)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(22,4,69)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(22,5,83)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(23,1,37)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(23,2,3)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(23,3,77)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(23,4,99)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(23,5,52)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(24,1,98)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(24,2,74)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(24,3,5)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(24,4,42)\
+");
+                tx.executeSql("\
+    insert into t_mark(sid, cid, mark)\
+        values(24,5,5)\
+");
+
+
+                tx.executeSql("\
+	insert into t_student(name, matriculation, class, address_province, sex)\
+		values('张小花', 2014, 3, '福建省', '女')\
+");
+                tx.executeSql("\
+	insert into t_student(name, matriculation, class, address_province, sex)\
+		values('刘小黄', 2013, 2, '福建省', '女')\
+");
+                tx.executeSql("\
+	insert into t_student(name, matriculation, class, address_province, sex)\
+		values('王小波', 2017, 1, '福建省', '男')\
+");
+                tx.executeSql("\
+	insert into t_student(name, matriculation, class, address_province, sex)\
+		values('王大波', 2011, 5, '福建省', '男')\
+");
+                tx.executeSql("\
+	insert into t_student(name, matriculation, class, address_province, sex)\
+		values('陈真', 2011, 5, '福建省', '男')\
+");
+                tx.executeSql("\
+	insert into t_student(name, matriculation, class, address_province, sex)\
+		values('叶问', 2014, 3, '山东省', '男')\
+");
+                tx.executeSql("\
+	insert into t_student(name, matriculation, class, address_province, sex)\
+		values('李小龙', 2000, 2, '山西省', '男')\
+");
+                tx.executeSql("\
+	insert into t_student(name, matriculation, class, address_province, sex)\
+		values('元首', 2007, 1, '河北省', '男')\
+");
+                tx.executeSql("\
+	insert into t_student(name, matriculation, class, address_province, sex)\
+		values('方首', 2009, 3, '河南省', '男')\
+");
+                tx.executeSql("\
+	insert into t_student(name, matriculation, class, address_province, sex)\
+		values('刘欣慈', 2006, 3, '福建省', '男')\
+");
+                tx.executeSql("\
+	insert into t_student(name, matriculation, class, address_province, sex)\
+		values('马云', 2011, 5, '福建省', '男')\
+");
+                tx.executeSql("\
+	insert into t_student(name, matriculation, class, address_province, sex)\
+		values('马化腾', 2011, 4, '福建省', '男')\
+");
+                tx.executeSql("\
+	insert into t_student(name, matriculation, class, address_province, sex)\
+		values('刘邦', 2002, 3, '福建省', '男')\
+");
+                tx.executeSql("\
+	insert into t_student(name, matriculation, class, address_province, sex)\
+		values('项羽', 2012, 2, '广东省', '男')\
+");
+                tx.executeSql("\
+	insert into t_student(name, matriculation, class, address_province, sex)\
+		values('胡亥', 2016, 1, '福建省', '男')\
+");
+                tx.executeSql("\
+	insert into t_student(name, matriculation, class, address_province, sex)\
+		values('荆轲', 2003, 3, '山西', '男')\
+");
+                tx.executeSql("\
+	insert into t_student(name, matriculation, class, address_province, sex)\
+		values('小明', 2000, 3, '广西壮族自治区', '女')\
+");
+                tx.executeSql("\
+	insert into t_student(name, matriculation, class, address_province, sex)\
+		values('小红', 2013, 1, '新疆维吾尔族自治区省', '女')\
+");
+                tx.executeSql("\
+	insert into t_student(name, matriculation, class, address_province, sex)\
+		values('冰心', 2005, 2, '福建省', '女')\
+");
+                tx.executeSql("\
+	insert into t_student(name, matriculation, class, address_province, sex)\
+		values('火心', 2005, 3, '山东省', '女')\
+");
+                tx.executeSql("\
+	insert into t_student(name, matriculation, class, address_province, sex)\
+		values('陈雪', 2000, 4, '山西省', '女')\
+");
+                tx.executeSql("\
+	insert into t_student(name, matriculation, class, address_province, sex)\
+		values('胡宇', 2013, 3, '河北省', '女')\
+");
+                tx.executeSql("\
+	insert into t_student(name, matriculation, class, address_province, sex)\
+		values('林平之', 2012, 1, '广西省', '女')\
+");
+                tx.executeSql("\
+	insert into t_student(name, matriculation, class, address_province, sex)\
+		values('赵高', 2010, 3, '浙江省', '女')\
+");
+
+
+                tx.executeSql("\
+            insert into t_course(name, teacher)\
+            values('历史', '李斯')\
+            ");
+                tx.executeSql("\
+            insert into t_course(name, teacher)\
+            values('数学', '高斯')\
+            ");
+                tx.executeSql("\
+            insert into t_course(name, teacher)\
+            values('政治', '高尔基')\
+            ");
+                tx.executeSql("\
+            insert into t_course(name, teacher)\
+            values('物理', '牛顿')\
+            ");
+                tx.executeSql("\
+            insert into t_course(name, teacher)\
+            values('化学', '诺贝尔')\
+            ");
+
+
+            })
+        });
+        $($(":button")[3]).click(function () {
+            db.transaction(function (tx) {
+                tx.executeSql("\
+                    select * from t_student\
+                    where name like '张%'\
+                ", null, function (tt, result) {
+                    $("textarea")[0].value = "";
+                    for (var i = 0; i < result.rows.length; i++) {
+                        for (var j in result.rows.item(i)) {
+                            $("textarea")[0].value += result.rows.item(i)[j] + " "
+                        }
+                        $("textarea")[0].value += "\n";
+                    }
+                });
+            })
+        });
+        $($(":button")[4]).click(function () {
+            db.transaction(function (tx) {
+                tx.executeSql("\
+                    select * from t_student\
+                    where address_province = '福建省'\
+                    and sex = '女'\
+                ", null, function (tt, result) {
+                    $("textarea")[0].value = "";
+                    for (var i = 0; i < result.rows.length; i++) {
+                        for (var j in result.rows.item(i)) {
+                            $("textarea")[0].value += result.rows.item(i)[j] + " "
+                        }
+                        $("textarea")[0].value += "\n";
+                    }
+                });
+            })
+        });
+        $($(":button")[5]).click(function () {
+            db.transaction(function (tx) {
+                tx.executeSql("\
+                    select t_student.name, t_course.*, t_mark.mark from t_student, t_mark, t_course\
+                    where t_student.id = t_mark.sid\
+                    and t_course.id = t_mark.cid\
+                    and t_student.sex = '女'\
+                ", null, function (tt, result) {
+                    $("textarea")[0].value = "";
+                    for (var i = 0; i < result.rows.length; i++) {
+                        for (var j in result.rows.item(i)) {
+                            $("textarea")[0].value += result.rows.item(i)[j] + " "
+                        }
+                        $("textarea")[0].value += "\n";
+                    }
+                });
+            })
+        });
+        $($(":button")[6]).click(function () {
+            db.transaction(function (tx) {
+                tx.executeSql("\
+                    select t_student.*, t_mark.mark from t_student, t_mark\
+                    where t_student.id = t_mark.sid\
+                    and t_mark.cid = 4\
+                    and t_student.sex = '男'\
+                ", null, function (tt, result) {
+                    $("textarea")[0].value = "";
+                    for (var i = 0; i < result.rows.length; i++) {
+                        for (var j in result.rows.item(i)) {
+                            $("textarea")[0].value += result.rows.item(i)[j] + " "
+                        }
+                        $("textarea")[0].value += "\n";
+                    }
+                });
+            })
+        });
+        $($(":button")[7]).click(function () {
+            db.transaction(function (tx) {
+                tx.executeSql("\
+                  select a.id, a.name, avg(b.mark) as 平均成绩\
+                    from t_student a\
+                    left join t_mark b on a.id=b.sid\
+                    group by b.sid\
+                ", null, function (tt, result) {
+                    $("textarea")[0].value = "";
+                    for (var i = 0; i < result.rows.length; i++) {
+                        for (var j in result.rows.item(i)) {
+                            $("textarea")[0].value += result.rows.item(i)[j] + " "
+                        }
+                        $("textarea")[0].value += "\n";
+                    }
+                });
+            })
+        });
+
+
+    }
+</script>
+<style>
+    textarea {
+        width: 1000px;
+        height: 500px;
+        overflow: scroll;
+    }
+</style>
+<body>
+<input type="button" value="1.创建数据库"><br/>
+<input type="button" value="2.创建表"><br/>
+<input type="button" value="3.插入数据"><br/>
+<input type="button" value="4.查询姓张的学生个人信息"><br/>
+<input type="button" value="5.查询地址福建的女生个人信息"><br/>
+<input type="button" value="6.查询所有女生的成绩"><br/>
+<input type="button" value="7.查询所有男生的物理成绩"><br/>
+<input type="button" value="8.查询所有学生的平均成绩"><br/>
+<textarea></textarea>
+</body>
+</html>
